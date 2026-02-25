@@ -6,7 +6,7 @@ import {
   Wallet, Leaf, ArrowRight, Wheat, Bot, Plus, Search,
   Filter, Landmark, History, CreditCard, Droplets, MapPin,
   FileText, Upload, AlertCircle, Calendar, ArrowUpRight,
-  PieChart as PieChartIcon, Activity
+  PieChart as PieChartIcon, Activity, Globe, Heart, Target, Users2, Mail, Lock, UserPlus
 } from 'lucide-react';
 import { 
   AreaChart, Area, Cell, ResponsiveContainer, 
@@ -101,6 +101,123 @@ const MARKET_DATA = [
 ];
 
 // --- VIEWS ---
+
+const ImpactView = ({ onNavigate }: { onNavigate: (v: any) => void }) => {
+  return (
+    <div className="pt-24 animate-in fade-in duration-700">
+      {/* Hero Impact */}
+      <section className="relative py-32 lg:py-48 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=1920&auto=format&fit=crop" 
+            className="w-full h-full object-cover opacity-30 grayscale" 
+            alt="Agriculture Sénégal" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-slate-50"></div>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-50 text-green-700 text-[10px] font-black uppercase tracking-widest mb-10 border border-green-100">
+            Notre Raison d'être
+          </div>
+          <h1 className="text-5xl lg:text-8xl font-black text-slate-900 tracking-[calc(-0.04em)] mb-8 leading-tight">
+            Nourrir le <span className="text-green-700">Sénégal</span>,<br/>
+            par les <span className="text-yellow-600">Sénégalais</span>.
+          </h1>
+          <p className="text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed font-medium">
+            Le but de Bay Seddo est de permettre à chaque citoyen de devenir acteur de l'autosuffisance alimentaire, peu importe son budget ou sa position géographique.
+          </p>
+        </div>
+      </section>
+
+      {/* Pillars Section */}
+      <section className="py-24 bg-white border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+            <div className="space-y-6">
+              <div className="w-16 h-16 bg-green-700 text-white rounded-3xl flex items-center justify-center shadow-xl shadow-green-900/20">
+                <Target size={32} />
+              </div>
+              <h3 className="text-2xl font-black text-slate-900 tracking-tight">Autosuffisance Réelle</h3>
+              <p className="text-slate-500 font-medium leading-relaxed">
+                En finançant directement les producteurs de riz, de légumes et d'élevage, nous réduisons la dépendance aux importations et garantissons des prix justes pour les consommateurs.
+              </p>
+            </div>
+            <div className="space-y-6">
+              <div className="w-16 h-16 bg-yellow-500 text-white rounded-3xl flex items-center justify-center shadow-xl shadow-yellow-900/20">
+                <Users2 size={32} />
+              </div>
+              <h3 className="text-2xl font-black text-slate-900 tracking-tight">Inclusion pour Tous</h3>
+              <p className="text-slate-500 font-medium leading-relaxed">
+                Que vous ayez 50,000 ou 5,000,000 FCFA, notre plateforme démocratise l'investissement agricole. Chaque franc investi est un grain semé pour le pays.
+              </p>
+            </div>
+            <div className="space-y-6">
+              <div className="w-16 h-16 bg-blue-600 text-white rounded-3xl flex items-center justify-center shadow-xl shadow-blue-900/20">
+                <Globe size={32} />
+              </div>
+              <h3 className="text-2xl font-black text-slate-900 tracking-tight">Partout dans le Monde</h3>
+              <p className="text-slate-500 font-medium leading-relaxed">
+                Diaspora ou résidents des régions reculées, Bay Seddo brise les barrières géographiques. Investissez dans votre terroir en un clic depuis votre mobile.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Statistics Section */}
+      <section className="py-32 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="bg-slate-900 rounded-[60px] p-16 lg:p-24 relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 p-20 opacity-10 rotate-12"><Sprout size={300} className="text-white"/></div>
+            
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+              <div>
+                <h2 className="text-4xl lg:text-6xl font-black text-white tracking-tighter mb-8 leading-tight">L'impact en chiffres.</h2>
+                <p className="text-slate-400 text-lg font-medium leading-relaxed mb-12">
+                  Depuis notre lancement, nous transformons le paysage agricole sénégalais grâce à la force du collectif.
+                </p>
+                <Button onClick={() => onNavigate('explore')} className="rounded-2xl px-10 py-6 text-xs font-black uppercase tracking-widest bg-white text-slate-900 hover:bg-slate-100">Devenir Investisseur</Button>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-8">
+                <div className="p-8 bg-white/5 backdrop-blur-md rounded-[40px] border border-white/10">
+                  <div className="text-4xl font-black text-green-400 mb-2">150+</div>
+                  <p className="text-[10px] font-black text-white/60 uppercase tracking-widest">Hectares Cultivés</p>
+                </div>
+                <div className="p-8 bg-white/5 backdrop-blur-md rounded-[40px] border border-white/10">
+                  <div className="text-4xl font-black text-yellow-400 mb-2">450M</div>
+                  <p className="text-[10px] font-black text-white/60 uppercase tracking-widest">FCFA Injectés</p>
+                </div>
+                <div className="p-8 bg-white/5 backdrop-blur-md rounded-[40px] border border-white/10">
+                  <div className="text-4xl font-black text-blue-400 mb-2">240</div>
+                  <p className="text-[10px] font-black text-white/60 uppercase tracking-widest">Emplois Ruraux</p>
+                </div>
+                <div className="p-8 bg-white/5 backdrop-blur-md rounded-[40px] border border-white/10">
+                  <div className="text-4xl font-black text-red-400 mb-2">1.2k</div>
+                  <p className="text-[10px] font-black text-white/60 uppercase tracking-widest">Tonnes Produites</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quote Section */}
+      <section className="py-32 bg-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <Heart className="mx-auto text-red-500 mb-8" size={48} />
+          <blockquote className="text-3xl lg:text-4xl font-black text-slate-900 leading-tight tracking-tight italic">
+            "Bay Seddo n'est pas seulement une plateforme financière, c'est un pacte de solidarité entre ceux qui ont les moyens d'investir et ceux qui ont la passion de cultiver."
+          </blockquote>
+          <div className="mt-10">
+            <p className="font-black text-slate-900 uppercase tracking-widest text-xs">L'équipe Bay Seddo</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
 
 const IdentityVerification = ({ onComplete }: { onComplete: () => void }) => {
   const [step, setStep] = useState(1);
@@ -466,26 +583,23 @@ const DashboardView = ({ user, investments, onNavigate }: {
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<UserType | null>(null);
-  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'explore' | 'kyc' | 'wallet'>('home');
-  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'explore' | 'kyc' | 'wallet' | 'impact'>('home');
+  const [authModal, setAuthModal] = useState<{isOpen: boolean, initialMode: 'login' | 'signup'}>({isOpen: false, initialMode: 'login'});
   const [investmentModalOpen, setInvestmentModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [investments, setInvestments] = useState<InvestmentRecord[]>(MOCK_INVESTMENTS);
 
-  const handleLogin = () => {
-    // Demo user
-    // Current Balance = 595,000 (from closed inv-past-1) + 150,000 (initial) - 250,000 (inv-active-1)
-    // Simplified:
+  const handleLogin = (name?: string) => {
     setCurrentUser({
        id: 'user1',
-       name: "Mohamed Diongue",
-       email: "mohamed@bayseddo.sn",
+       name: name || "Mohamed Diongue",
+       email: "user@bayseddo.sn",
        role: 'investor',
        isVerified: false,
        balance: 495000, 
        investedCapital: 250000 
     });
-    setAuthModalOpen(false);
+    setAuthModal({isOpen: false, initialMode: 'login'});
     setCurrentView('dashboard');
   };
 
@@ -495,7 +609,7 @@ const App: React.FC = () => {
   };
 
   const openInvestment = (project: Project) => {
-    if (!currentUser) { setAuthModalOpen(true); return; }
+    if (!currentUser) { setAuthModal({isOpen: true, initialMode: 'login'}); return; }
     setSelectedProject(project);
     setInvestmentModalOpen(true);
   };
@@ -542,7 +656,7 @@ const App: React.FC = () => {
           </div>
           <div className="hidden md:flex items-center space-x-12">
             <button onClick={() => setCurrentView('explore')} className={`text-xs font-black uppercase tracking-widest transition-all ${currentView === 'explore' ? 'text-green-700' : 'text-slate-500 hover:text-green-700'}`}>Opportunités</button>
-            <button className="text-xs font-black uppercase tracking-widest text-slate-500 hover:text-green-700">Notre Impact</button>
+            <button onClick={() => setCurrentView('impact')} className={`text-xs font-black uppercase tracking-widest transition-all ${currentView === 'impact' ? 'text-green-700' : 'text-slate-500 hover:text-green-700'}`}>Notre Impact</button>
             {currentUser ? (
                <div className="flex items-center gap-6 pl-6 border-l border-slate-100">
                   <div className="text-right">
@@ -556,8 +670,8 @@ const App: React.FC = () => {
                </div>
             ) : (
                <div className="flex gap-4">
-                  <Button variant="ghost" className="font-black text-[10px] uppercase tracking-widest" onClick={() => setAuthModalOpen(true)}>Connexion</Button>
-                  <Button className="rounded-2xl px-10 font-black text-[10px] uppercase tracking-widest shadow-2xl shadow-green-900/20" onClick={() => setAuthModalOpen(true)}>Ouvrir un compte</Button>
+                  <Button variant="ghost" className="font-black text-[10px] uppercase tracking-widest" onClick={() => setAuthModal({isOpen: true, initialMode: 'login'})}>Connexion</Button>
+                  <Button className="rounded-2xl px-10 font-black text-[10px] uppercase tracking-widest shadow-2xl shadow-green-900/20" onClick={() => setAuthModal({isOpen: true, initialMode: 'signup'})}>Ouvrir un compte</Button>
                </div>
             )}
           </div>
@@ -587,7 +701,7 @@ const App: React.FC = () => {
                      </p>
                      <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
                         <Button size="lg" className="rounded-2xl shadow-[0_20px_50px_rgba(22,101,52,0.4)] px-14 uppercase text-xs tracking-widest font-black" onClick={() => setCurrentView('explore')}>Explorer les Campagnes <ArrowRight className="ml-3" size={24}/></Button>
-                        <Button variant="outline" size="lg" className="rounded-2xl border-white/40 text-white hover:bg-white hover:text-green-950 px-14 uppercase text-xs tracking-widest font-black backdrop-blur-sm">En savoir plus</Button>
+                        <Button variant="outline" size="lg" className="rounded-2xl border-white/40 text-white hover:bg-white hover:text-green-950 px-14 uppercase text-xs tracking-widest font-black backdrop-blur-sm" onClick={() => setCurrentView('impact')}>Notre Mission</Button>
                      </div>
                   </div>
                </div>
@@ -633,6 +747,10 @@ const App: React.FC = () => {
            </div>
         )}
 
+        {currentView === 'impact' && (
+           <ImpactView onNavigate={setCurrentView} />
+        )}
+
         {currentView === 'dashboard' && currentUser && (
            <DashboardView 
              user={currentUser} 
@@ -667,7 +785,7 @@ const App: React.FC = () => {
                  <h4 className="text-white font-black mb-12 uppercase tracking-widest text-xs">Navigation</h4>
                  <ul className="space-y-6 text-sm font-bold">
                     <li><button onClick={() => setCurrentView('explore')} className="hover:text-green-500 transition-colors">Explorer</button></li>
-                    <li><button className="hover:text-green-500 transition-colors">Notre Impact</button></li>
+                    <li><button onClick={() => setCurrentView('impact')} className="hover:text-green-500 transition-colors">Notre Impact</button></li>
                     <li><button className="hover:text-green-500 transition-colors">Support & Aide</button></li>
                  </ul>
              </div>
@@ -684,7 +802,12 @@ const App: React.FC = () => {
       </footer>
 
       {/* MODALS */}
-      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} onLoginSuccess={handleLogin} />
+      <AuthModal 
+        isOpen={authModal.isOpen} 
+        initialMode={authModal.initialMode}
+        onClose={() => setAuthModal({isOpen: false, initialMode: 'login'})} 
+        onLoginSuccess={handleLogin} 
+      />
       {selectedProject && (
          <InvestmentModal 
            project={selectedProject} 
@@ -700,31 +823,103 @@ const App: React.FC = () => {
 };
 
 // --- AUTH MODAL ---
-const AuthModal = ({ isOpen, onClose, onLoginSuccess }: { isOpen: boolean, onClose: () => void, onLoginSuccess: () => void }) => {
+const AuthModal = ({ isOpen, onClose, onLoginSuccess, initialMode }: { 
+  isOpen: boolean, 
+  onClose: () => void, 
+  onLoginSuccess: (name?: string) => void,
+  initialMode: 'login' | 'signup'
+}) => {
+  const [mode, setMode] = useState<'login' | 'signup'>(initialMode);
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+
+  useEffect(() => {
+    setMode(initialMode);
+  }, [initialMode, isOpen]);
+
   if (!isOpen) return null;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in">
       <div className="bg-white rounded-[50px] w-full max-w-md overflow-hidden shadow-2xl relative border border-slate-100">
         <button onClick={onClose} className="absolute top-10 right-10 text-slate-400 hover:text-slate-600 z-10 p-3 bg-slate-50 rounded-full transition-all"><X size={24}/></button>
         <div className="p-16">
            <div className="text-center mb-12">
-              <div className="w-24 h-24 bg-green-50 text-green-700 rounded-[32px] flex items-center justify-center mx-auto mb-10 shadow-inner border border-green-100">
-                 <User size={40} />
+              <div className="w-24 h-24 bg-green-50 text-green-700 rounded-[32px] flex items-center justify-center mx-auto mb-10 shadow-inner border border-green-100 animate-in zoom-in duration-500">
+                 {mode === 'login' ? <User size={40} /> : <UserPlus size={40} />}
               </div>
-              <h2 className="text-4xl font-black text-slate-900 tracking-tighter">Connexion</h2>
-              <p className="text-slate-400 font-medium mt-3">Gérez vos actifs agricoles en un clic.</p>
+              <h2 className="text-4xl font-black text-slate-900 tracking-tighter transition-all duration-300">
+                {mode === 'login' ? 'Bon retour !' : 'Rejoindre Bay Seddo'}
+              </h2>
+              <p className="text-slate-400 font-medium mt-3">
+                {mode === 'login' ? 'Gérez vos actifs agricoles en un clic.' : 'Commencez à bâtir votre avenir agricole.'}
+              </p>
            </div>
-           <form className="space-y-8" onSubmit={(e) => { e.preventDefault(); onLoginSuccess(); }}>
-              <div className="space-y-3">
-                 <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Email</label>
-                 <input type="email" required className="w-full px-8 py-6 bg-slate-50 rounded-3xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold" placeholder="mohamed@bayseddo.sn" />
+           
+           <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); onLoginSuccess(formData.name); }}>
+              {mode === 'signup' && (
+                <div className="space-y-2 animate-in slide-in-from-left-4 duration-300">
+                   <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Nom complet</label>
+                   <div className="relative">
+                      <User size={18} className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300" />
+                      <input 
+                        type="text" 
+                        required 
+                        value={formData.name}
+                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        className="w-full pl-14 pr-8 py-5 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold placeholder:text-slate-300" 
+                        placeholder="Ex: Moussa Diop" 
+                      />
+                   </div>
+                </div>
+              )}
+              
+              <div className="space-y-2">
+                 <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Email Professionnel</label>
+                 <div className="relative">
+                    <Mail size={18} className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300" />
+                    <input 
+                      type="email" 
+                      required 
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      className="w-full pl-14 pr-8 py-5 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold placeholder:text-slate-300" 
+                      placeholder="votre@email.sn" 
+                    />
+                 </div>
               </div>
-              <div className="space-y-3">
+
+              <div className="space-y-2">
                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Mot de passe</label>
-                 <input type="password" required className="w-full px-8 py-6 bg-slate-50 rounded-3xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold" placeholder="••••••••" />
+                 <div className="relative">
+                    <Lock size={18} className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300" />
+                    <input 
+                      type="password" 
+                      required 
+                      value={formData.password}
+                      onChange={(e) => setFormData({...formData, password: e.target.value})}
+                      className="w-full pl-14 pr-8 py-5 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold placeholder:text-slate-300" 
+                      placeholder="••••••••" 
+                    />
+                 </div>
               </div>
-              <Button type="submit" className="w-full py-7 rounded-3xl font-black text-xs uppercase tracking-widest shadow-2xl shadow-green-900/20">Accéder au Portail</Button>
+
+              <Button type="submit" className="w-full py-6 rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl shadow-green-900/20 mt-4 active:scale-95 transition-transform">
+                {mode === 'login' ? 'Accéder au Portail' : 'Créer mon compte'}
+              </Button>
            </form>
+
+           <div className="mt-10 text-center">
+              <button 
+                onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
+                className="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-green-700 transition-colors"
+              >
+                {mode === 'login' ? (
+                  <>Nouveau sur Bay Seddo ? <span className="text-green-700 ml-1">Inscrivez-vous</span></>
+                ) : (
+                  <>Déjà un compte ? <span className="text-green-700 ml-1">Connectez-vous</span></>
+                )}
+              </button>
+           </div>
         </div>
       </div>
     </div>
