@@ -27,7 +27,7 @@ const MOCK_PROJECTS: Project[] = [
     description: 'Culture intensive de piment "oiseau" sur 5 hectares. Installation d\'un système d\'irrigation solaire performant pour garantir des rendements élevés toute l\'année.',
     category: 'Maraîchage',
     location: 'Mboro, Thiès',
-    imageUrl: 'https://images.unsplash.com/photo-1518977822534-7049a61ee0c2?q=80&w=800&auto=format&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1588252303782-cb80119abd6d?q=80&w=800&auto=format&fit=crop',
     targetAmount: 5000000,
     raisedAmount: 3850000,
     investorsCount: 34,
@@ -42,7 +42,7 @@ const MOCK_PROJECTS: Project[] = [
     description: 'Production de concombres de qualité premium sous serres ombragées. Un cycle court et une forte demande sur le marché de Dakar pour un retour sur investissement rapide.',
     category: 'Maraîchage',
     location: 'Bambilor, Dakar',
-    imageUrl: 'https://images.unsplash.com/photo-1596560548464-f010549b84d7?q=80&w=800&auto=format&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1604977042946-1eecc30f269e?q=80&w=800&auto=format&fit=crop',
     targetAmount: 3000000,
     raisedAmount: 1200000,
     investorsCount: 15,
@@ -53,7 +53,7 @@ const MOCK_PROJECTS: Project[] = [
   },
   {
     id: 'aviculture-mbour',
-    title: 'Ferme Avicole Bio Mbour',
+    title: 'Ferme Avicole Mbour',
     description: 'Production de poulets de chair élevés en plein air avec alimentation 100% naturelle. Projet à fort impact local.',
     category: 'Aviculture',
     location: 'Mbour, Thiès',
@@ -109,7 +109,8 @@ const ImpactView = ({ onNavigate }: { onNavigate: (v: any) => void }) => {
       <section className="relative py-32 lg:py-48 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=1920&auto=format&fit=crop" 
+            src="https://images.unsplash.com/photo-1590682680695-43b964a3ae17?q=80&w=1920&auto=format&fit=crop" 
+            referrerPolicy="no-referrer"
             className="w-full h-full object-cover opacity-30 grayscale" 
             alt="Agriculture Sénégal" 
           />
@@ -177,24 +178,24 @@ const ImpactView = ({ onNavigate }: { onNavigate: (v: any) => void }) => {
                 <p className="text-slate-400 text-lg font-medium leading-relaxed mb-12">
                   Depuis notre lancement, nous transformons le paysage agricole sénégalais grâce à la force du collectif.
                 </p>
-                <Button onClick={() => onNavigate('explore')} className="rounded-2xl px-10 py-6 text-xs font-black uppercase tracking-widest bg-white text-slate-900 hover:bg-slate-100">Devenir Investisseur</Button>
+                <Button variant="ghost" onClick={() => onNavigate('explore')} className="rounded-2xl px-10 py-6 text-xs font-black uppercase tracking-widest bg-white text-green-700 hover:bg-slate-100 shadow-xl">Devenir Investisseur</Button>
               </div>
               
               <div className="grid grid-cols-2 gap-8">
                 <div className="p-8 bg-white/5 backdrop-blur-md rounded-[40px] border border-white/10">
-                  <div className="text-4xl font-black text-green-400 mb-2">150+</div>
+                  <div className="text-4xl font-black text-green-400 mb-2">15+</div>
                   <p className="text-[10px] font-black text-white/60 uppercase tracking-widest">Hectares Cultivés</p>
                 </div>
                 <div className="p-8 bg-white/5 backdrop-blur-md rounded-[40px] border border-white/10">
-                  <div className="text-4xl font-black text-yellow-400 mb-2">450M</div>
+                  <div className="text-4xl font-black text-yellow-400 mb-2">45M</div>
                   <p className="text-[10px] font-black text-white/60 uppercase tracking-widest">FCFA Injectés</p>
                 </div>
                 <div className="p-8 bg-white/5 backdrop-blur-md rounded-[40px] border border-white/10">
-                  <div className="text-4xl font-black text-blue-400 mb-2">240</div>
+                  <div className="text-4xl font-black text-blue-400 mb-2">20</div>
                   <p className="text-[10px] font-black text-white/60 uppercase tracking-widest">Emplois Ruraux</p>
                 </div>
                 <div className="p-8 bg-white/5 backdrop-blur-md rounded-[40px] border border-white/10">
-                  <div className="text-4xl font-black text-red-400 mb-2">1.2k</div>
+                  <div className="text-4xl font-black text-red-400 mb-2">1.2</div>
                   <p className="text-[10px] font-black text-white/60 uppercase tracking-widest">Tonnes Produites</p>
                 </div>
               </div>
@@ -584,10 +585,16 @@ const DashboardView = ({ user, investments, onNavigate }: {
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<UserType | null>(null);
   const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'explore' | 'kyc' | 'wallet' | 'impact'>('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [authModal, setAuthModal] = useState<{isOpen: boolean, initialMode: 'login' | 'signup'}>({isOpen: false, initialMode: 'login'});
   const [investmentModalOpen, setInvestmentModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [investments, setInvestments] = useState<InvestmentRecord[]>(MOCK_INVESTMENTS);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setIsMenuOpen(false);
+  }, [currentView]);
 
   const handleLogin = (name?: string) => {
     setCurrentUser({
@@ -654,6 +661,8 @@ const App: React.FC = () => {
             <div className="bg-green-700 p-2.5 rounded-2xl text-white shadow-lg shadow-green-900/20"><Sprout size={28} /></div>
             <span className="font-black text-3xl text-gray-900 tracking-tighter">Bay<span className="text-green-700">Seddo</span></span>
           </div>
+
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-12">
             <button onClick={() => setCurrentView('explore')} className={`text-xs font-black uppercase tracking-widest transition-all ${currentView === 'explore' ? 'text-green-700' : 'text-slate-500 hover:text-green-700'}`}>Opportunités</button>
             <button onClick={() => setCurrentView('impact')} className={`text-xs font-black uppercase tracking-widest transition-all ${currentView === 'impact' ? 'text-green-700' : 'text-slate-500 hover:text-green-700'}`}>Notre Impact</button>
@@ -675,7 +684,36 @@ const App: React.FC = () => {
                </div>
             )}
           </div>
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            className="md:hidden p-3 bg-slate-50 rounded-2xl text-slate-900"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white border-t border-slate-100 p-6 space-y-6 animate-in slide-in-from-top-4 duration-300 shadow-xl">
+            <div className="flex flex-col space-y-4">
+              <button onClick={() => setCurrentView('explore')} className="text-left py-3 text-xs font-black uppercase tracking-widest text-slate-900 border-b border-slate-50">Opportunités</button>
+              <button onClick={() => setCurrentView('impact')} className="text-left py-3 text-xs font-black uppercase tracking-widest text-slate-900 border-b border-slate-50">Notre Impact</button>
+              {currentUser ? (
+                <>
+                  <button onClick={() => setCurrentView('dashboard')} className="text-left py-3 text-xs font-black uppercase tracking-widest text-green-700 border-b border-slate-50">Mon Tableau de bord</button>
+                  <button onClick={handleLogout} className="text-left py-3 text-xs font-black uppercase tracking-widest text-red-500">Déconnexion</button>
+                </>
+              ) : (
+                <div className="grid grid-cols-2 gap-4 pt-4">
+                  <Button variant="outline" className="rounded-xl font-black text-[10px] uppercase tracking-widest" onClick={() => setAuthModal({isOpen: true, initialMode: 'login'})}>Connexion</Button>
+                  <Button className="rounded-xl font-black text-[10px] uppercase tracking-widest" onClick={() => setAuthModal({isOpen: true, initialMode: 'signup'})}>S'inscrire</Button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </nav>
 
       <main>
@@ -683,22 +721,18 @@ const App: React.FC = () => {
            <>
             <section className="relative pt-32 pb-20 lg:pt-64 lg:pb-48 overflow-hidden">
                <div className="absolute inset-0 z-0 scale-105">
-                  <img src="https://images.unsplash.com/photo-1590483734731-5079822a9451?q=80&w=1920&auto=format&fit=crop" className="w-full h-full object-cover" alt="" />
+                  <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=1920&auto=format&fit=crop" referrerPolicy="no-referrer" className="w-full h-full object-cover" alt="" />
                   <div className="absolute inset-0 bg-gradient-to-r from-green-950/95 via-green-950/60 to-black/30"></div>
                </div>
                <div className="relative z-10 max-w-7xl mx-auto px-4 text-center lg:text-left">
                   <div className="lg:w-2/3">
-                     <div className="inline-flex items-center px-5 py-2.5 rounded-full bg-white/10 border border-white/20 text-green-100 text-[10px] font-black uppercase tracking-widest mb-12 backdrop-blur-md">
-                        <span className="w-2.5 h-2.5 rounded-full bg-green-400 mr-3 animate-pulse"></span>
-                        Rejoignez notre equipe d'investisseurs locaux
-                     </div>
                      <h1 className="text-7xl lg:text-[120px] font-black text-white tracking-[calc(-0.04em)] mb-12 leading-[0.82]">
                         La terre ne <br/>
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-green-400 to-green-500">trahit jamais.</span>
                      </h1>
                      <p className="text-2xl text-green-50/80 mb-16 leading-relaxed max-w-2xl font-medium">
                         Investissez dans des projets a forte valeur.
-                     </p>
+                      </p>
                      <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
                         <Button size="lg" className="rounded-2xl shadow-[0_20px_50px_rgba(22,101,52,0.4)] px-14 uppercase text-xs tracking-widest font-black" onClick={() => setCurrentView('explore')}>Explorer les Campagnes <ArrowRight className="ml-3" size={24}/></Button>
                         <Button variant="outline" size="lg" className="rounded-2xl border-white/40 text-white hover:bg-white hover:text-green-950 px-14 uppercase text-xs tracking-widest font-black backdrop-blur-sm" onClick={() => setCurrentView('impact')}>Notre Mission</Button>
@@ -709,12 +743,12 @@ const App: React.FC = () => {
             
             <section className="py-32 bg-white">
                <div className="max-w-7xl mx-auto px-4">
-                  <div className="flex flex-col md:flex-row justify-between items-end mb-24">
-                     <div className="max-w-2xl">
-                        <h2 className="text-6xl font-black text-slate-900 tracking-tighter mb-6">Campagnes Vedettes</h2>
-                        <p className="text-slate-500 text-xl font-medium leading-relaxed">Découvrez nos exploitations phares : les concombres premium de Bambilor et les piments export de Mboro.</p>
+                  <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-24 gap-8">
+                     <div className="max-w-2xl text-center md:text-left">
+                        <h2 className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter mb-6">Campagnes Vedettes</h2>
+                        <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed">Découvrez nos exploitations phares : les concombres premium de Bambilor et les piments export de Mboro.</p>
                      </div>
-                     <Button variant="ghost" className="hidden md:flex items-center gap-2 font-black text-[11px] uppercase tracking-widest text-green-700" onClick={() => setCurrentView('explore')}>Voir toutes les opportunités <ChevronRight size={16}/></Button>
+                     <Button variant="ghost" className="flex items-center gap-2 font-black text-[11px] uppercase tracking-widest text-green-700" onClick={() => setCurrentView('explore')}>Voir toutes les opportunités <ChevronRight size={16}/></Button>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                      {MOCK_PROJECTS.map(p => <ProjectCard key={p.id} project={p} onInvest={openInvestment} />)}
@@ -779,7 +813,7 @@ const App: React.FC = () => {
          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-24">
              <div className="col-span-1 md:col-span-2">
                  <div className="flex items-center gap-3 mb-12 text-white"><Sprout size={48} className="text-green-500" /><span className="font-black text-5xl tracking-tighter">Bay Seddo</span></div>
-                 <p className="text-xl leading-relaxed max-w-md text-slate-400">Pionnier du financement agricole participatif au Sénégal. Bâtissons ensemble une agriculture forte et rentable.</p>
+                 <p className="text-xl leading-relaxed max-w-md text-slate-400">Financement agricole participatif au Sénégal. Bâtissons ensemble une agriculture forte et rentable.</p>
              </div>
              <div>
                  <h4 className="text-white font-black mb-12 uppercase tracking-widest text-xs">Navigation</h4>
@@ -792,13 +826,13 @@ const App: React.FC = () => {
              <div>
                  <h4 className="text-white font-black mb-12 uppercase tracking-widest text-xs">Contact</h4>
                  <ul className="space-y-6 text-sm">
-                    <li>Dakar Plateau, Sénégal</li>
+                    <li>Dakar, Sénégal</li>
                     <li>contact@bayseddo.sn</li>
                     <li className="font-black text-white text-lg">+221 33 800 00 00</li>
                  </ul>
              </div>
          </div>
-         <div className="max-w-7xl mx-auto px-4 mt-32 pt-12 border-t border-white/5 text-center text-[11px] uppercase tracking-widest font-black text-slate-600">© 2025 Bay Seddo - Finance Agricole Durable</div>
+         <div className="max-w-7xl mx-auto px-4 mt-32 pt-12 border-t border-white/5 text-center text-[11px] uppercase tracking-widest font-black text-slate-600">© 2026 Bay Seddo - Finance Agricole Durable</div>
       </footer>
 
       {/* MODALS */}
@@ -840,33 +874,33 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, initialMode }: {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in">
-      <div className="bg-white rounded-[50px] w-full max-w-md overflow-hidden shadow-2xl relative border border-slate-100">
-        <button onClick={onClose} className="absolute top-10 right-10 text-slate-400 hover:text-slate-600 z-10 p-3 bg-slate-50 rounded-full transition-all"><X size={24}/></button>
-        <div className="p-16">
-           <div className="text-center mb-12">
-              <div className="w-24 h-24 bg-green-50 text-green-700 rounded-[32px] flex items-center justify-center mx-auto mb-10 shadow-inner border border-green-100 animate-in zoom-in duration-500">
-                 {mode === 'login' ? <User size={40} /> : <UserPlus size={40} />}
+      <div className="bg-white rounded-[40px] w-full max-w-md overflow-hidden shadow-2xl relative border border-slate-100">
+        <button onClick={onClose} className="absolute top-6 right-6 text-slate-400 hover:text-slate-600 z-10 p-2 bg-slate-50 rounded-full transition-all"><X size={20}/></button>
+        <div className="p-10 md:p-12">
+           <div className="text-center mb-10">
+              <div className="w-16 h-16 bg-green-50 text-green-700 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner border border-green-100 animate-in zoom-in duration-500">
+                 {mode === 'login' ? <User size={28} /> : <UserPlus size={28} />}
               </div>
-              <h2 className="text-4xl font-black text-slate-900 tracking-tighter transition-all duration-300">
+              <h2 className="text-3xl font-black text-slate-900 tracking-tighter transition-all duration-300">
                 {mode === 'login' ? 'Bon retour !' : 'Rejoindre Bay Seddo'}
               </h2>
-              <p className="text-slate-400 font-medium mt-3">
+              <p className="text-slate-400 font-medium mt-2 text-sm">
                 {mode === 'login' ? 'Gérez vos actifs agricoles en un clic.' : 'Commencez à bâtir votre avenir agricole.'}
               </p>
            </div>
            
-           <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); onLoginSuccess(formData.name); }}>
+           <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); onLoginSuccess(formData.name); }}>
               {mode === 'signup' && (
                 <div className="space-y-2 animate-in slide-in-from-left-4 duration-300">
                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Nom complet</label>
                    <div className="relative">
-                      <User size={18} className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300" />
+                      <User size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300" />
                       <input 
                         type="text" 
                         required 
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="w-full pl-14 pr-8 py-5 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold placeholder:text-slate-300" 
+                        className="w-full pl-12 pr-6 py-4 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold text-base placeholder:text-slate-300" 
                         placeholder="Ex: Moussa Diop" 
                       />
                    </div>
@@ -876,13 +910,13 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, initialMode }: {
               <div className="space-y-2">
                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Email Professionnel</label>
                  <div className="relative">
-                    <Mail size={18} className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300" />
+                    <Mail size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300" />
                     <input 
                       type="email" 
                       required 
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="w-full pl-14 pr-8 py-5 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold placeholder:text-slate-300" 
+                      className="w-full pl-12 pr-6 py-4 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold text-base placeholder:text-slate-300" 
                       placeholder="votre@email.sn" 
                     />
                  </div>
@@ -891,32 +925,32 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, initialMode }: {
               <div className="space-y-2">
                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Mot de passe</label>
                  <div className="relative">
-                    <Lock size={18} className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300" />
+                    <Lock size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300" />
                     <input 
                       type="password" 
                       required 
                       value={formData.password}
                       onChange={(e) => setFormData({...formData, password: e.target.value})}
-                      className="w-full pl-14 pr-8 py-5 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold placeholder:text-slate-300" 
+                      className="w-full pl-12 pr-6 py-4 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold text-base placeholder:text-slate-300" 
                       placeholder="••••••••" 
                     />
                  </div>
               </div>
 
-              <Button type="submit" className="w-full py-6 rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl shadow-green-900/20 mt-4 active:scale-95 transition-transform">
+              <Button type="submit" className="w-full py-5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-green-900/10 mt-4 active:scale-95 transition-transform">
                 {mode === 'login' ? 'Accéder au Portail' : 'Créer mon compte'}
               </Button>
            </form>
 
-           <div className="mt-10 text-center">
+           <div className="mt-8 text-center">
               <button 
                 onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
-                className="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-green-700 transition-colors"
+                className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-green-700 transition-colors py-1"
               >
                 {mode === 'login' ? (
-                  <>Nouveau sur Bay Seddo ? <span className="text-green-700 ml-1">Inscrivez-vous</span></>
+                  <>Nouveau ? <span className="text-green-700 ml-1 border-b border-green-700/20 hover:border-green-700 transition-all">Inscrivez-vous</span></>
                 ) : (
-                  <>Déjà un compte ? <span className="text-green-700 ml-1">Connectez-vous</span></>
+                  <>Déjà un compte ? <span className="text-green-700 ml-1 border-b border-green-700/20 hover:border-green-700 transition-all">Connectez-vous</span></>
                 )}
               </button>
            </div>
@@ -957,7 +991,7 @@ const InvestmentModal = ({ project, isOpen, onClose, userBalance, onFinalize }: 
         {step === 1 && (
            <div className="flex flex-col">
               <div className="h-96 relative">
-                 <img src={project.imageUrl} className="w-full h-full object-cover" alt="" />
+                 <img src={project.imageUrl} referrerPolicy="no-referrer" className="w-full h-full object-cover" alt="" />
                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
                  <div className="absolute bottom-16 left-16 right-16">
                     <span className="bg-green-600 text-[10px] font-black uppercase text-white px-6 py-2.5 rounded-full tracking-widest mb-8 inline-block shadow-2xl">{project.category}</span>
