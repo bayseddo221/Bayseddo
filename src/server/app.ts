@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Gemini API setup
 const getAI = () => {
-  const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
+const ai = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_API_KEY });
   if (!apiKey) {
     console.error("No API key found in environment variables (GEMINI_API_KEY or API_KEY)");
     throw new Error("Gemini API key is not defined");
