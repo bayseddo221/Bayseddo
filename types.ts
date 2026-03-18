@@ -3,6 +3,7 @@ export interface Project {
   id: string;
   title: string;
   description: string;
+  shortDescription?: string;
   category: 'Maraîchage' | 'Aviculture' | 'Céréales' | 'Bétail' | 'Arboriculture';
   location: string;
   imageUrl: string;

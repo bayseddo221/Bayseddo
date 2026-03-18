@@ -39,7 +39,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onInvest }) =
 
       <div className="p-8 flex-1 flex flex-col">
         <p className="text-slate-500 text-sm mb-8 line-clamp-2 font-medium leading-relaxed">
-          {project.description}
+          {project.shortDescription || project.description}
         </p>
 
         <div className="grid grid-cols-2 gap-4 mb-8">

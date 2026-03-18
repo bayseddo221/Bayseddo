@@ -16,7 +16,6 @@ import {
 import { Project, User as UserType, InvestmentRecord } from './types';
 import { ProjectCard } from './components/ProjectCard';
 import { Button } from './components/Button';
-import { analyzeProjectRisks } from './services/geminiService';
 import { AIChat } from './components/AIChat';
 
 // --- MOCK DATA ---
@@ -25,6 +24,7 @@ const MOCK_PROJECTS: Project[] = [
     id: 'piment-mboro',
     title: 'Exploitation de Piment à Mboro',
     description: 'Culture intensive de piment "oiseau" sur 5 hectares. Installation d\'un système d\'irrigation solaire performant pour garantir des rendements élevés toute l\'année.',
+    shortDescription: 'Culture intensive de piment "oiseau" avec irrigation solaire à Mboro.',
     category: 'Maraîchage',
     location: 'Mboro, Thiès',
     imageUrl: 'https://images.unsplash.com/photo-1588252303782-cb80119abd6d?q=80&w=800&auto=format&fit=crop',
@@ -40,6 +40,7 @@ const MOCK_PROJECTS: Project[] = [
     id: 'concombre-bambilor',
     title: 'Exploitation de Concombres à Bambilor',
     description: 'Production de concombres de qualité premium sous serres ombragées. Un cycle court et une forte demande sur le marché de Dakar pour un retour sur investissement rapide.',
+    shortDescription: 'Production de concombres premium sous serres à Bambilor.',
     category: 'Maraîchage',
     location: 'Bambilor, Dakar',
     imageUrl: 'https://images.unsplash.com/photo-1604977042946-1eecc30f269e?q=80&w=800&auto=format&fit=crop',
@@ -55,6 +56,7 @@ const MOCK_PROJECTS: Project[] = [
     id: 'aviculture-mbour',
     title: 'Ferme Avicole Mbour',
     description: 'Production de poulets de chair élevés en plein air avec alimentation 100% naturelle. Projet à fort impact local.',
+    shortDescription: 'Élevage de poulets de chair en plein air à Mbour.',
     category: 'Aviculture',
     location: 'Mbour, Thiès',
     imageUrl: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?q=80&w=800&auto=format&fit=crop',
@@ -580,11 +582,162 @@ const DashboardView = ({ user, investments, onNavigate }: {
   );
 };
 
+const SupportView = ({ onBack }: { onBack: () => void }) => {
+  const [formData, setFormData] = useState({ name: '', email: '', subject: 'Investissement', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+    // Simulate API call
+    setTimeout(() => {
+      setSubmitted(false);
+      onBack();
+    }, 3000);
+  };
+
+  return (
+    <div className="pt-24 animate-in fade-in duration-700 bg-slate-50 min-h-screen">
+      <section className="relative py-24 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1595841696677-6489ff3f8cd1?q=80&w=1920&auto=format&fit=crop" 
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover opacity-10" 
+            alt="Support" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-slate-50/80 to-white"></div>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+            <div>
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-50 text-green-700 text-[10px] font-black uppercase tracking-widest mb-8 border border-green-100">
+                Contactez-nous
+              </div>
+              <h1 className="text-5xl lg:text-7xl font-black text-slate-900 tracking-tighter mb-8 leading-tight">
+                Besoin d'aide ? <br/>
+                On est <span className="text-green-700">là pour vous.</span>
+              </h1>
+              <p className="text-xl text-slate-500 leading-relaxed font-medium mb-12 max-w-lg">
+                Que vous soyez investisseur ou producteur, notre équipe est à votre écoute pour vous accompagner dans l'aventure Bay Seddo.
+              </p>
+
+              <div className="space-y-8">
+                <div className="flex items-center gap-6">
+                  <div className="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-green-700 border border-slate-100">
+                    <Mail size={24} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Email</p>
+                    <p className="text-lg font-black text-slate-900">support@bayseddo.sn</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-6">
+                  <div className="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-green-700 border border-slate-100">
+                    <Activity size={24} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Téléphone</p>
+                    <p className="text-lg font-black text-slate-900">+221 33 800 00 00</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-6">
+                  <div className="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-green-700 border border-slate-100">
+                    <MapPin size={24} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Bureau</p>
+                    <p className="text-lg font-black text-slate-900">Dakar, Plateau, Sénégal</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-10 lg:p-16 rounded-[60px] shadow-2xl shadow-slate-200 border border-slate-100 relative overflow-hidden">
+              {submitted ? (
+                <div className="text-center py-20 space-y-8 animate-in zoom-in duration-500">
+                  <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-green-600 mx-auto shadow-inner ring-[12px] ring-green-50">
+                    <CheckCircle2 size={48} />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-black text-slate-900 tracking-tight">Message Envoyé !</h3>
+                    <p className="text-slate-500 mt-4 font-medium leading-relaxed">
+                      Jërëjëf ! Notre équipe va traiter votre demande et vous répondra dans les plus brefs délais.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Nom complet</label>
+                      <input 
+                        type="text" 
+                        required 
+                        value={formData.name}
+                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold text-base" 
+                        placeholder="Moussa Diop" 
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Email</label>
+                      <input 
+                        type="email" 
+                        required 
+                        value={formData.email}
+                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold text-base" 
+                        placeholder="votre@email.sn" 
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Sujet</label>
+                    <select 
+                      value={formData.subject}
+                      onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                      className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold text-base appearance-none"
+                    >
+                      <option>Investissement</option>
+                      <option>Technique / Plateforme</option>
+                      <option>Partenariat</option>
+                      <option>Autre</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Message</label>
+                    <textarea 
+                      required 
+                      rows={5}
+                      value={formData.message}
+                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                      className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-none outline-none ring-1 ring-slate-100 focus:ring-4 focus:ring-green-600/10 transition-all font-bold text-base resize-none" 
+                      placeholder="Comment pouvons-nous vous aider ?" 
+                    />
+                  </div>
+
+                  <Button type="submit" className="w-full py-6 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-green-900/10 active:scale-95 transition-transform">
+                    Envoyer le message
+                  </Button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 // --- MAIN APP COMPONENT ---
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<UserType | null>(null);
-  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'explore' | 'kyc' | 'wallet' | 'impact'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'explore' | 'kyc' | 'wallet' | 'impact' | 'support'>('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [authModal, setAuthModal] = useState<{isOpen: boolean, initialMode: 'login' | 'signup'}>({isOpen: false, initialMode: 'login'});
   const [investmentModalOpen, setInvestmentModalOpen] = useState(false);
@@ -807,6 +960,9 @@ const App: React.FC = () => {
              onBack={() => setCurrentView('dashboard')} 
            />
         )}
+        {currentView === 'support' && (
+           <SupportView onBack={() => setCurrentView('home')} />
+        )}
       </main>
 
       <footer className="bg-slate-950 text-slate-500 py-40 border-t border-slate-900">
@@ -820,7 +976,7 @@ const App: React.FC = () => {
                  <ul className="space-y-6 text-sm font-bold">
                     <li><button onClick={() => setCurrentView('explore')} className="hover:text-green-500 transition-colors">Explorer</button></li>
                     <li><button onClick={() => setCurrentView('impact')} className="hover:text-green-500 transition-colors">Notre Impact</button></li>
-                    <li><button className="hover:text-green-500 transition-colors">Support & Aide</button></li>
+                    <li><button onClick={() => setCurrentView('support')} className="hover:text-green-500 transition-colors">Support & Aide</button></li>
                  </ul>
              </div>
              <div>
@@ -970,14 +1126,10 @@ const InvestmentModal = ({ project, isOpen, onClose, userBalance, onFinalize }: 
 }) => {
   const [step, setStep] = useState(1);
   const [amount, setAmount] = useState(250000);
-  const [loadingAi, setLoadingAi] = useState(false);
-  const [aiAnalysis, setAiAnalysis] = useState('');
 
   useEffect(() => {
     if (isOpen) {
        setStep(1);
-       setLoadingAi(true);
-       analyzeProjectRisks(project).then(res => { setAiAnalysis(res); setLoadingAi(false); });
     }
   }, [isOpen]);
 
@@ -1003,10 +1155,10 @@ const InvestmentModal = ({ project, isOpen, onClose, userBalance, onFinalize }: 
                  <div className="bg-emerald-50 border-2 border-emerald-100 p-10 rounded-[40px] relative overflow-hidden">
                     <div className="absolute -top-16 -right-16 p-4 opacity-5 rotate-12"><Sprout size={280}/></div>
                     <div className="flex gap-8 items-start relative z-10">
-                       <div className="bg-green-700 p-4 rounded-2xl text-white shadow-2xl"><Bot size={32}/></div>
+                       <div className="bg-green-700 p-4 rounded-2xl text-white shadow-2xl"><FileText size={32}/></div>
                        <div>
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-green-800 mb-4">Conseiller Bay Seddo</h4>
-                          {loadingAi ? <div className="h-5 bg-green-200 rounded w-3/4 animate-pulse"></div> : <p className="text-sm font-bold text-green-950 leading-relaxed italic">"{aiAnalysis}"</p>}
+                          <h4 className="text-[10px] font-black uppercase tracking-widest text-green-800 mb-4">Description du Projet</h4>
+                          <p className="text-sm font-bold text-green-950 leading-relaxed italic">"{project.shortDescription || project.description}"</p>
                        </div>
                     </div>
                  </div>

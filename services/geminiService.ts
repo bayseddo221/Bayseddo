@@ -9,12 +9,15 @@ export const analyzeProjectRisks = async (project: Project): Promise<string> => 
       body: JSON.stringify({ project }),
     });
 
-    if (!response.ok) throw new Error("API request failed");
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || "API request failed");
+    }
     const data = await response.json();
     return data.text || "Analyse indisponible pour le moment.";
-  } catch (error) {
+  } catch (error: any) {
     console.error("Erreur Gemini:", error);
-    return "Notre conseiller IA est momentanément indisponible.";
+    return `Erreur: ${error.message || "Notre conseiller IA est momentanément indisponible."}`;
   }
 };
 
@@ -26,11 +29,14 @@ export const chatWithAdvisor = async (userMessage: string): Promise<string> => {
       body: JSON.stringify({ message: userMessage }),
     });
 
-    if (!response.ok) throw new Error("API request failed");
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || "API request failed");
+    }
     const data = await response.json();
     return data.text || "Je n'ai pas pu traiter votre demande.";
-  } catch (error) {
+  } catch (error: any) {
     console.error("Erreur Chat:", error);
-    return "Désolé, une erreur est survenue.";
+    return `Erreur: ${error.message || "Désolé, une erreur est survenue."}`;
   }
 };
